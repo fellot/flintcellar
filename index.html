@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Flint Cellar</title>
+    <link rel="stylesheet" href="assets/style.css" />
+  </head>
+  <body>
+    <header class="topbar">
+      <div class="brand">🍷 Flint Cellar</div>
+      <nav class="tabs" role="tablist" aria-label="Views">
+        <button id="tab-cellar" class="tab active" data-tab="cellar" aria-selected="true">Cellar</button>
+        <button id="tab-journal" class="tab" data-tab="journal" aria-selected="false">Journal</button>
+      </nav>
+      <div class="spacer"></div>
+      <div class="actions">
+        <button id="exportStateBtn" title="Export state">Export</button>
+        <button id="clearStateBtn" title="Clear local data">Reset</button>
+      </div>
+    </header>
+
+    <main>
+      <section id="cellarView" class="view active" role="tabpanel" aria-labelledby="tab-cellar">
+        <div class="controls">
+          <input id="search" type="search" placeholder="Search bottle, grape, region, country... (press / to focus)" />
+          <div class="control-row">
+            <details class="filter">
+              <summary>Style</summary>
+              <div id="filterStyle" class="filter-list"></div>
+            </details>
+            <details class="filter">
+              <summary>Country</summary>
+              <div id="filterCountry" class="filter-list"></div>
+            </details>
+            <details class="filter">
+              <summary>Location</summary>
+              <div id="filterLocation" class="filter-list"></div>
+            </details>
+            <label class="status-only"><input id="onlyInCellar" type="checkbox" /> In cellar only</label>
+            <label class="status-only"><input id="onlyHaveQty" type="checkbox" checked /> Only with remaining</label>
+            <label class="sort">
+              Sort
+              <select id="sortBy">
+                <option value="location">Location</option>
+                <option value="name">Name</option>
+                <option value="vintage">Vintage</option>
+                <option value="peakYear">Peak Year</option>
+                <option value="country">Country</option>
+                <option value="style">Style</option>
+              </select>
+            </label>
+          </div>
+          <div id="stats" class="stats" aria-live="polite"></div>
+        </div>
+
+        <div id="grid" class="grid" aria-live="polite"></div>
+      </section>
+
+      <section id="journalView" class="view" role="tabpanel" aria-labelledby="tab-journal">
+        <div class="journal-head">
+          <h2>Cellar Journal</h2>
+          <div class="journal-actions">
+            <button id="newNoteBtn">New Note</button>
+          </div>
+        </div>
+        <div id="journalList" class="journal-list" aria-live="polite"></div>
+      </section>
+    </main>
+
+    <dialog id="modal" class="modal">
+      <form method="dialog" class="modal-card" id="modalCard">
+        <header class="modal-header">
+          <h3 id="modalTitle">Title</h3>
+          <button type="button" class="icon-btn" id="modalClose" aria-label="Close">✕</button>
+        </header>
+        <div class="modal-body" id="modalBody"></div>
+        <footer class="modal-footer" id="modalFooter"></footer>
+      </form>
+    </dialog>
+
+    <template id="wineCardTmpl">
+      <article class="card">
+        <div class="thumb-wrap">
+          <img class="thumb" alt="Bottle" loading="lazy" />
+          <div class="qty-badge" title="Remaining in cellar"></div>
+        </div>
+        <div class="card-body">
+          <h3 class="title"></h3>
+          <div class="meta"></div>
+          <div class="tags"></div>
+          <div class="actions">
+            <button class="btn consume">Consume</button>
+            <button class="btn outline details">Details</button>
+          </div>
+        </div>
+      </article>
+    </template>
+
+    <script src="assets/app.js" type="module"></script>
+  </body>
+  </html>
+
